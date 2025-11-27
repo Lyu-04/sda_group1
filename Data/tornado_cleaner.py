@@ -4,7 +4,7 @@ import csv
 
 # data file to clean and cleaned file
 input_file = r"Data\us_tornado_dataset_1950_2021.csv"
-output_file = r"Data\clean_tornado_tx_1950_2021.csv"
+output_file = r"Data\clean_tornado_tx_1970_2021.csv"
 
 
 with open(input_file, newline="", encoding="utf-8") as infile, \
@@ -17,5 +17,5 @@ with open(input_file, newline="", encoding="utf-8") as infile, \
 
     #select only data where state == texas and write to cleaned file
     for row in reader:
-        if row.get("st") == "TX":
+        if row.get("st") == "TX" and int(row.get("yr")) > 1969:
             writer.writerow(row)
