@@ -31,3 +31,7 @@ Generated plots are saved to `plots/`.
 - matplotlib
 - numpy
 - scipy
+
+### small note
+
+For the plots of the trajectories of the center of mass of tornadoes, when running `tornado_center_of_mass_shift.py` yourself, you can zoom in using the lens to get a better, more readable view of the trajectories.
