@@ -21,6 +21,7 @@ python3 <filename>.py
 - `monthly_tornado_histogram.py` - Monthly tornado frequency distribution
 - `tornado_map_magnitude.py` - Geographic map colored by tornado magnitude
 - `tornado_map_size.py` - Geographic map colored by tornado width
+- `tornado_center_of_mass_shift.py` - **Center of mass shift analysis** - Analyzes whether the geographic center of tornadoes in Texas is shifting over time (1950-2021), with statistical significance testing
 
 Generated plots are saved to `plots/`.
 
@@ -29,3 +30,4 @@ Generated plots are saved to `plots/`.
 - pandas
 - matplotlib
 - numpy
+- scipy
