@@ -14,7 +14,6 @@ except OSError:
     except OSError:
         plt.style.use('default')
 
-# Statistical significance level
 ALPHA = 0.05  # Significance level for hypothesis testing
 
 # Read the dataset
@@ -164,22 +163,22 @@ period_colors = plt.cm.plasma(np.linspace(0, 1, len(com_by_5yr)))
 # Helper function to plot trajectory
 def plot_trajectory(ax, com_data, colors, title, colorbar_label, zoom=False, label_every=1):
     """Plot center of mass trajectory with color gradient."""
-    ax.scatter(df_clean['slon'], df_clean['slat'], 
+    ax.scatter(df_clean['slon'], df_clean['slat'],
                alpha=0.1 if zoom else 0.05, s=1, c='lightgray', label='All tornadoes')
-    
+
     # Plot line segments with color gradient
     for i in range(len(com_data) - 1):
         ax.plot([com_data.iloc[i]['com_lon'], com_data.iloc[i+1]['com_lon']],
                 [com_data.iloc[i]['com_lat'], com_data.iloc[i+1]['com_lat']],
                 color=colors[i], linewidth=3, alpha=0.8)
-    
+
     # Plot markers with color gradient
     for idx, (i, row) in enumerate(com_data.iterrows()):
         marker_size = 150 if 'decade' in com_data.columns else 120
-        ax.scatter(row['com_lon'], row['com_lat'], 
-                   s=marker_size, c=[colors[idx]], edgecolors='black', 
+        ax.scatter(row['com_lon'], row['com_lat'],
+                   s=marker_size, c=[colors[idx]], edgecolors='black',
                    linewidths=1.5, zorder=5, alpha=0.9)
-        
+
         # Add labels
         if 'decade' in com_data.columns:
             label = f"{int(row['decade'])}s"
@@ -191,45 +190,45 @@ def plot_trajectory(ax, com_data, colors, title, colorbar_label, zoom=False, lab
             else:
                 label = None
                 fontsize = 7
-        
+
         if label:
-            ax.annotate(label, 
+            ax.annotate(label,
                        (row['com_lon'], row['com_lat']),
-                       xytext=(5, 5), textcoords='offset points', 
+                       xytext=(5, 5), textcoords='offset points',
                        fontsize=fontsize, fontweight='bold')
-    
+
     # Add colorbar
     if 'decade' in com_data.columns:
-        sm = plt.cm.ScalarMappable(cmap=plt.cm.plasma, 
-                                    norm=plt.Normalize(vmin=com_data['decade'].min(), 
+        sm = plt.cm.ScalarMappable(cmap=plt.cm.plasma,
+                                    norm=plt.Normalize(vmin=com_data['decade'].min(),
                                                        vmax=com_data['decade'].max()))
     else:
-        sm = plt.cm.ScalarMappable(cmap=plt.cm.plasma, 
-                                    norm=plt.Normalize(vmin=com_data['period_5yr'].min(), 
+        sm = plt.cm.ScalarMappable(cmap=plt.cm.plasma,
+                                    norm=plt.Normalize(vmin=com_data['period_5yr'].min(),
                                                        vmax=com_data['period_5yr'].max()))
     sm.set_array([])
     cbar = plt.colorbar(sm, ax=ax)
     cbar.set_label(colorbar_label, fontsize=10, fontweight='bold')
-    
+
     ax.set_xlabel('Longitude', fontsize=12, fontweight='bold')
     ax.set_ylabel('Latitude', fontsize=12, fontweight='bold')
     ax.set_title(title, fontsize=14, fontweight='bold')
     ax.grid(True, alpha=0.3)
     ax.set_aspect('equal', adjustable='box')
-    
+
     if zoom:
         ax.set_xlim(lon_lim)
         ax.set_ylim(lat_lim)
 
 fig1, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 8))
 
-# Left: Decade trajectory (full view)
-plot_trajectory(ax1, com_by_decade, decade_colors, 
+# Left: Decade trajectory
+plot_trajectory(ax1, com_by_decade, decade_colors,
                 'Trajectory by Decade', 'Decade', zoom=False)
 
-# Right: 5-year trajectory (full view)
-plot_trajectory(ax2, com_by_5yr, period_colors, 
-                'Trajectory by 5-Year Periods', '5-Year Period Start', 
+# Right: 5-year trajectory
+plot_trajectory(ax2, com_by_5yr, period_colors,
+                'Trajectory by 5-Year Periods', '5-Year Period Start',
                 zoom=False, label_every=3)
 
 plt.tight_layout()
@@ -244,10 +243,10 @@ print(f"\nTrajectory plots saved to {output_path1}")
 fig2, (ax2, ax3) = plt.subplots(1, 2, figsize=(16, 6))
 
 # Plot 2: Time series of latitude shift
-ax2.scatter(com_by_year['yr'], com_by_year['com_lat'], 
+ax2.scatter(com_by_year['yr'], com_by_year['com_lat'],
            alpha=0.6, s=50, color='blue', label='Yearly Center of Mass')
-ax2.plot(com_by_year['yr'], 
-        intercept_lat + slope_lat * com_by_year['yr'], 
+ax2.plot(com_by_year['yr'],
+        intercept_lat + slope_lat * com_by_year['yr'],
         'r--', linewidth=2, label=f'Linear Trend (p={p_value_lat:.4f})')
 ax2.set_xlabel('Year', fontsize=12, fontweight='bold')
 ax2.set_ylabel('Center of Mass Latitude (°)', fontsize=12, fontweight='bold')
@@ -256,10 +255,10 @@ ax2.legend()
 ax2.grid(True, alpha=0.3)
 
 # Plot 3: Time series of longitude shift
-ax3.scatter(com_by_year['yr'], com_by_year['com_lon'], 
+ax3.scatter(com_by_year['yr'], com_by_year['com_lon'],
            alpha=0.6, s=50, color='green', label='Yearly Center of Mass')
-ax3.plot(com_by_year['yr'], 
-        intercept_lon + slope_lon * com_by_year['yr'], 
+ax3.plot(com_by_year['yr'],
+        intercept_lon + slope_lon * com_by_year['yr'],
         'r--', linewidth=2, label=f'Linear Trend (p={p_value_lon:.4f})')
 ax3.set_xlabel('Year', fontsize=12, fontweight='bold')
 ax3.set_ylabel('Center of Mass Longitude (°)', fontsize=12, fontweight='bold')
@@ -275,14 +274,14 @@ print(f"Time series plots saved to {output_path2}")
 # Also save a combined figure for convenience
 fig_combined, axes = plt.subplots(2, 2, figsize=(16, 12))
 
-# Top left: Decade trajectory (full view)
-plot_trajectory(axes[0, 0], com_by_decade, decade_colors, 
+# Top left: Decade trajectory
+plot_trajectory(axes[0, 0], com_by_decade, decade_colors,
                 'Trajectory of Tornado Center of Mass (by Decade)', 'Decade', zoom=False)
 
-axes[0, 1].scatter(com_by_year['yr'], com_by_year['com_lat'], 
+axes[0, 1].scatter(com_by_year['yr'], com_by_year['com_lat'],
                    alpha=0.6, s=50, color='blue', label='Yearly Center of Mass')
-axes[0, 1].plot(com_by_year['yr'], 
-                intercept_lat + slope_lat * com_by_year['yr'], 
+axes[0, 1].plot(com_by_year['yr'],
+                intercept_lat + slope_lat * com_by_year['yr'],
                 'r--', linewidth=2, label=f'Linear Trend (p={p_value_lat:.4f})')
 axes[0, 1].set_xlabel('Year', fontsize=12, fontweight='bold')
 axes[0, 1].set_ylabel('Center of Mass Latitude (°)', fontsize=12, fontweight='bold')
@@ -290,10 +289,10 @@ axes[0, 1].set_title('Latitude Shift Over Time', fontsize=14, fontweight='bold')
 axes[0, 1].legend()
 axes[0, 1].grid(True, alpha=0.3)
 
-axes[1, 0].scatter(com_by_year['yr'], com_by_year['com_lon'], 
+axes[1, 0].scatter(com_by_year['yr'], com_by_year['com_lon'],
                    alpha=0.6, s=50, color='green', label='Yearly Center of Mass')
-axes[1, 0].plot(com_by_year['yr'], 
-                intercept_lon + slope_lon * com_by_year['yr'], 
+axes[1, 0].plot(com_by_year['yr'],
+                intercept_lon + slope_lon * com_by_year['yr'],
                 'r--', linewidth=2, label=f'Linear Trend (p={p_value_lon:.4f})')
 axes[1, 0].set_xlabel('Year', fontsize=12, fontweight='bold')
 axes[1, 0].set_ylabel('Center of Mass Longitude (°)', fontsize=12, fontweight='bold')
@@ -301,9 +300,9 @@ axes[1, 0].set_title('Longitude Shift Over Time', fontsize=14, fontweight='bold'
 axes[1, 0].legend()
 axes[1, 0].grid(True, alpha=0.3)
 
-# Bottom right: 5-year trajectory (full view)
-plot_trajectory(axes[1, 1], com_by_5yr, period_colors, 
-                'Trajectory of Tornado Center of Mass (5-Year Periods)', 
+# Bottom right: 5-year trajectory
+plot_trajectory(axes[1, 1], com_by_5yr, period_colors,
+                'Trajectory of Tornado Center of Mass (5-Year Periods)',
                 '5-Year Period Start', zoom=False, label_every=3)
 
 plt.tight_layout()

@@ -30,21 +30,21 @@ alpha_values = 0.1 + 0.8 * (mag_normalized ** 3)  # Range from 0.1 to 0.9 with e
 marker_sizes = 10 + (mag_normalized * 150)  # Range from 10 to 160
 
 # Create scatter plot colored by magnitude
-scatter = ax.scatter(df_clean['slon'], df_clean['slat'], 
-                     c=df_clean['mag'], 
-                     cmap='YlOrRd', 
-                     s=marker_sizes, 
-                     alpha=alpha_values, 
-                     edgecolors='black', 
+scatter = ax.scatter(df_clean['slon'], df_clean['slat'],
+                     c=df_clean['mag'],
+                     cmap='YlOrRd',
+                     s=marker_sizes,
+                     alpha=alpha_values,
+                     edgecolors='black',
                      linewidths=0.3)
 
 # Customizations to the plot
 cbar = plt.colorbar(scatter, ax=ax)
-cbar.set_label('Tornado Magnitude (Enhanced Fujita Scale)', 
+cbar.set_label('Tornado Magnitude (Enhanced Fujita Scale)',
                fontsize=12, fontweight='bold')
 ax.set_xlabel('Longitude', fontsize=12, fontweight='bold')
 ax.set_ylabel('Latitude', fontsize=12, fontweight='bold')
-ax.set_title('Tornado Locations in Texas Colored by Magnitude (1950-2021)', 
+ax.set_title('Tornado Locations in Texas Colored by Magnitude (1950-2021)',
              fontsize=14, fontweight='bold', pad=20)
 ax.grid(True, alpha=0.3, linestyle='--')
 
@@ -54,7 +54,7 @@ ax.set_aspect('equal', adjustable='box')
 # Save the plot
 output_dir = '../plots'
 os.makedirs(output_dir, exist_ok=True)
-plt.savefig(os.path.join(output_dir, 'tornado_map_magnitude.png'), 
+plt.savefig(os.path.join(output_dir, 'tornado_map_magnitude.png'),
             dpi=300, bbox_inches='tight')
 print(f"Plot saved to {os.path.join(output_dir, 'tornado_map_magnitude.png')}")
 

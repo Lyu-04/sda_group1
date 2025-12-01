@@ -31,6 +31,7 @@ Generated plots are saved to `plots/`.
 - matplotlib
 - numpy
 - scipy
+- seaborn
 
 ### small note
 
