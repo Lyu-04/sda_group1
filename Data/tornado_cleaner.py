@@ -22,5 +22,7 @@ with open(input_file, newline="", encoding="utf-8") as infile, \
             # filter out few weird points
             if float(row.get("slat")) > 36 and float(row.get("slon")) > -98:
                 pass
+            if float(row.get("slon")) < -107.5:
+                pass
             else:
                 writer.writerow(row)
