@@ -1,0 +1,46 @@
+--------------------
+-     LATITUDE     -
+--------------------
+
+- Research Question   : Does the average tornado latitude change over time?
+- Null Hypothesis (H0): Average tornado latitude does not change over time.
+
+The linear regression showed a very small positive trend in tornado latitude,
+with a slope of 0.00118 degrees per year. The p-value for the slope was
+0.7396, which is far above the 0.05 significance threshold.
+
+Thus, we fail to reject the null hypothesis and conclude that there is no
+statistically significant evidence that tornadoes in Texas have shifted northward
+or southward over the study period.
+
+The model explains almost none of the variance (R^2 = 0.0016), indicating
+that year-to-year fluctuations dominate and the linear model is not meaningful
+as a predictor of latitude.
+
+
+---------------------
+-     LONGITUDE     -
+---------------------
+
+- Research Question   : Does the average tornado longitude change over time?
+- Null Hypothesis (H0): Average tornado longitude does not change over time.
+
+The linear regression showed a very small positive trend in tornado longitude,
+with a slope of 0.00174 degrees per year. The p-value for the slope was
+0.6701, which is well above the 0.05 significance threshold.
+
+Thus, we fail to reject the null hypothesis and conclude that there is no
+statistically significant evidence that tornadoes in Texas have shifted eastward
+or westward over the study period.
+
+The model explains very little variance (R^2 = 0.0026), indicating that the
+observed east-west variability is dominated by natural annual fluctuations rather
+than a long-term linear shift.
+
+-----------------------------------------------------------------------------------------
+
+- NOTE:
+Annual latitude and longitude varies substantially due to the geography of
+individual outbreaks, changes in reporting, and randomness in where tornadoes
+occur. The lack of a trend is expected and does not imply stability, only that
+no consistent long-term directional shift is detectable.

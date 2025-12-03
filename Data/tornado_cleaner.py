@@ -18,4 +18,11 @@ with open(input_file, newline="", encoding="utf-8") as infile, \
     #select only data where state == texas and write to cleaned file
     for row in reader:
         if row.get("st") == "TX" and int(row.get("yr")) > 1969:
-            writer.writerow(row)
+
+            # filter out few weird points
+            if float(row.get("slat")) > 36 and float(row.get("slon")) > -98:
+                pass
+            if float(row.get("slon")) < -107.5:
+                pass
+            else:
+                writer.writerow(row)
