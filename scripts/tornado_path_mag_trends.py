@@ -3,7 +3,8 @@ import matplotlib.pyplot as plt
 from scipy import stats
 import os
 
-from linear_assumption_tests import test_all_metrics
+from linear_assumption_tests import test_linearity_all_metrics
+
 
 # Read the dataset
 data_path = '../Data/clean_tornado_tx_1950_2021.csv'
@@ -75,4 +76,4 @@ print(f"Summary statistics saved to {os.path.join('../Data', 'tornado_path_shift
 
 
 # Test all the metrics
-test_all_metrics(yearly, metrics, metric_list=['mag', 'len', 'wid'], outdir='../plots')
+test_linearity_all_metrics(yearly, metrics, metric_list=['mag', 'len', 'wid'], outdir='../plots')

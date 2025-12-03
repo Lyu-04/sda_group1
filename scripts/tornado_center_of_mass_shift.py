@@ -4,6 +4,8 @@ import numpy as np
 from scipy import stats
 import os
 
+from linear_assumption_tests import test_linearity_all_metrics
+
 
 # Read the dataset
 data_path = '../Data/clean_tornado_tx_1950_2021.csv'
@@ -59,7 +61,7 @@ com_by_year_weighted = df_mag.groupby('yr').apply(
 ).reset_index()
 
 # ============================================================================
-# STEP 2: Statistical Analysis - Test for Significant Shift
+# STEP 2: Statistical Analysis
 # ============================================================================
 
 # Linear regression on latitude over time
@@ -71,6 +73,12 @@ slope_lat, intercept_lat, r_value_lat, p_value_lat, std_err_lat = stats.linregre
 slope_lon, intercept_lon, r_value_lon, p_value_lon, std_err_lon = stats.linregress(
     com_by_year['yr'], com_by_year['com_lon']
 )
+
+# Calculate metrics
+metrics = {
+    'com_lat': (slope_lat, intercept_lat, r_value_lat, p_value_lat),
+    'com_lon': (slope_lon, intercept_lon, r_value_lon, p_value_lon)
+}
 
 # ============================================================================
 # STEP 3: Create Visualizations
@@ -194,7 +202,7 @@ ax3.legend()
 ax3.grid(True, alpha=0.3)
 
 plt.tight_layout()
-output_path2 = os.path.join(output_dir, 'tornado_center_of_mass_timeseries.png')
+output_path2 = os.path.join(output_dir, 'center_of_mass_trend.png')
 plt.savefig(output_path2, dpi=300, bbox_inches='tight')
 print(f"Time series plots saved to {output_path2}")
 
@@ -269,3 +277,10 @@ summary_df = pd.DataFrame(summary)
 summary_df.to_csv(os.path.join(results_dir, 'center_of_mass_shift_summary.csv'), index=False)
 
 plt.show()
+
+# ============================================================================
+# STEP 5: Test all the metrics
+# ============================================================================
+
+# Test all the metrics
+test_linearity_all_metrics(com_by_year, metrics, metric_list=['com_lat', 'com_lon'], outdir=output_dir)
