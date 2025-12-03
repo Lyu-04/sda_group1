@@ -1,0 +1,13 @@
+- Research Question   : Does tornado path length change over time?
+- Null Hypothesis (H0): Path length does not change over time.
+
+The linear regression showed a small negative trend in tornado path length, with
+a slope of –0.0273. The p-value for the slope was 0.00069, which is below the
+0.05 significance threshold.
+
+Thus, we reject the null hypothesis and conclude that reported tornado path
+lengths have decreased significantly over the study period, although the effect
+size is modest.
+
+The model explains a relatively small portion of the variance (R^2 = 0.15),
+suggesting that the trend is statistically significant but not strongly predictive.
