@@ -31,9 +31,18 @@ def plot_residuals_vs_year(yearly, metrics, metric, outdir='../plots'):
     print(f"Residual plot saved to {outfile}")
 
 
-def test_all_metrics(yearly, metrics, metric_list=['mag', 'len', 'wid'], outdir='../plots'):
+def test_all_metrics(yearly, metrics, metric_list, outdir='../plots'):
     """
     Loop over metrics and plot residuals for each.
+
+    yearly : pandas.DataFrame
+        DataFrame containing yearly averages for each metric.
+    metrics : dict
+        Dictionary with regression results: {metric: (slope, intercept, r2, p)}
+    metric_list : list
+        List of metrics to test
+    outdir : str
+        Directory to save plots
     """
     for metric in metric_list:
         plot_residuals_vs_year(yearly, metrics, metric, outdir=outdir)
