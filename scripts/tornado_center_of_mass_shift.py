@@ -4,17 +4,6 @@ import numpy as np
 from scipy import stats
 import os
 
-# Styling
-plt.rcParams['figure.figsize'] = (14, 10)
-try:
-    plt.style.use('seaborn-v0_8-darkgrid')
-except OSError:
-    try:
-        plt.style.use('seaborn-darkgrid')
-    except OSError:
-        plt.style.use('default')
-
-ALPHA = 0.05  # Significance level for hypothesis testing
 
 # Read the dataset
 data_path = '../Data/clean_tornado_tx_1950_2021.csv'
@@ -22,14 +11,6 @@ df = pd.read_csv(data_path)
 
 # Filter out invalid coordinates (0.0, 0.0)
 df_clean = df[(df['slat'] != 0.0) & (df['slon'] != 0.0)].copy()
-
-print("=" * 80)
-print("TEXAS TORNADO CENTER OF MASS SHIFT ANALYSIS (1950-2021)")
-print("=" * 80)
-print(f"\nTotal tornadoes analyzed: {len(df_clean)}")
-print(f"Year range: {df_clean['yr'].min()} - {df_clean['yr'].max()}")
-print(f"Latitude range: {df_clean['slat'].min():.2f}° - {df_clean['slat'].max():.2f}°")
-print(f"Longitude range: {df_clean['slon'].min():.2f}° - {df_clean['slon'].max():.2f}°")
 
 # ============================================================================
 # STEP 1: Calculate Center of Mass by Different Time Periods
@@ -77,18 +58,9 @@ com_by_year_weighted = df_mag.groupby('yr').apply(
     lambda x: calculate_center_of_mass(x, weight_col='mag')
 ).reset_index()
 
-print("\n" + "=" * 80)
-print("CENTER OF MASS BY DECADE")
-print("=" * 80)
-print(com_by_decade[['decade', 'com_lat', 'com_lon', 'count']].to_string(index=False))
-
 # ============================================================================
 # STEP 2: Statistical Analysis - Test for Significant Shift
 # ============================================================================
-
-print("\n" + "=" * 80)
-print("STATISTICAL ANALYSIS: Testing for Significant Shift")
-print("=" * 80)
 
 # Linear regression on latitude over time
 slope_lat, intercept_lat, r_value_lat, p_value_lat, std_err_lat = stats.linregress(
@@ -100,30 +72,6 @@ slope_lon, intercept_lon, r_value_lon, p_value_lon, std_err_lon = stats.linregre
     com_by_year['yr'], com_by_year['com_lon']
 )
 
-print(f"\nLATITUDE SHIFT:")
-print(f"  Slope: {slope_lat:.6f} degrees/year")
-print(f"  Total shift (1950-2021): {slope_lat * 71:.4f} degrees")
-print(f"  R-squared: {r_value_lat**2:.4f}")
-print(f"  P-value: {p_value_lat:.6f}")
-print(f"  Significant? {'YES' if p_value_lat < ALPHA else 'NO'} (α={ALPHA})")
-
-print(f"\nLONGITUDE SHIFT:")
-print(f"  Slope: {slope_lon:.6f} degrees/year")
-print(f"  Total shift (1950-2021): {slope_lon * 71:.4f} degrees")
-print(f"  R-squared: {r_value_lon**2:.4f}")
-print(f"  P-value: {p_value_lon:.6f}")
-print(f"  Significant? {'YES' if p_value_lon < ALPHA else 'NO'} (α={ALPHA})")
-
-# Convert degrees to approximate distance (1 degree ≈ 111 km)
-lat_shift_km = slope_lat * 71 * 111
-lon_shift_km = slope_lon * 71 * 111 * np.cos(np.radians(com_by_year['com_lat'].mean()))
-total_shift_km = np.sqrt(lat_shift_km**2 + lon_shift_km**2)
-
-print(f"\nAPPROXIMATE DISTANCE SHIFT (1950-2021):")
-print(f"  North-South: {lat_shift_km:.2f} km")
-print(f"  East-West: {lon_shift_km:.2f} km")
-print(f"  Total distance: {total_shift_km:.2f} km")
-
 # ============================================================================
 # STEP 3: Create Visualizations
 # ============================================================================
@@ -134,27 +82,6 @@ os.makedirs(output_dir, exist_ok=True)
 # ============================================================================
 # Figure 1: Center of Mass Trajectory Plots (Grouped Together)
 # ============================================================================
-
-# Calculate bounds for center of mass region (with padding)
-# Combine all center of mass points to determine zoom region
-all_com_lat = pd.concat([com_by_decade['com_lat'], com_by_5yr['com_lat']])
-all_com_lon = pd.concat([com_by_decade['com_lon'], com_by_5yr['com_lon']])
-
-lat_min, lat_max = all_com_lat.min(), all_com_lat.max()
-lon_min, lon_max = all_com_lon.min(), all_com_lon.max()
-
-# Add padding (15% on each side)
-lat_range = lat_max - lat_min
-lon_range = lon_max - lon_min
-lat_padding = lat_range * 0.15
-lon_padding = lon_range * 0.15
-
-lat_lim = [lat_min - lat_padding, lat_max + lat_padding]
-lon_lim = [lon_min - lon_padding, lon_max + lon_padding]
-
-print(f"\nZoom region for trajectory plots:")
-print(f"  Latitude: {lat_lim[0]:.4f}° to {lat_lim[1]:.4f}° (range: {lat_range:.4f}°)")
-print(f"  Longitude: {lon_lim[0]:.4f}° to {lon_lim[1]:.4f}° (range: {lon_range:.4f}°)")
 
 # Create color gradients
 decade_colors = plt.cm.plasma(np.linspace(0, 1, len(com_by_decade)))
@@ -332,54 +259,13 @@ print(f"Results saved to {os.path.join(results_dir, 'center_of_mass_by_5yr.csv')
 
 # Save summary statistics
 summary = {
-    'metric': ['Latitude Slope (deg/year)', 'Longitude Slope (deg/year)',
-               'Latitude R-squared', 'Longitude R-squared',
-               'Latitude P-value', 'Longitude P-value',
-               'Total Lat Shift (deg)', 'Total Lon Shift (deg)',
-               'Total Shift Distance (km)'],
+    'metric': ['lat_slope', 'lon_slope',
+               'lat_r2', 'lon_r2',
+               'lat_p', 'lon_p'],
     'value': [slope_lat, slope_lon, r_value_lat**2, r_value_lon**2,
-              p_value_lat, p_value_lon, slope_lat * 71, slope_lon * 71,
-              total_shift_km]
+              p_value_lat, p_value_lon]
 }
 summary_df = pd.DataFrame(summary)
 summary_df.to_csv(os.path.join(results_dir, 'center_of_mass_shift_summary.csv'), index=False)
-print(f"Summary statistics saved to {os.path.join(results_dir, 'center_of_mass_shift_summary.csv')}")
-
-print("\n" + "=" * 80)
-print("STATISTICAL CONCLUSION")
-print("=" * 80)
-print("\nNull Hypothesis (H0): The center of mass of tornado occurrences has not changed over time.")
-print(f"Alternative Hypothesis (H1): The center of mass of tornado occurrences has changed over time.")
-print(f"Significance level (α): {ALPHA}")
-
-if p_value_lat < ALPHA or p_value_lon < ALPHA:
-    print("\n" + "-" * 80)
-    print("RESULT: We REJECT the null hypothesis.")
-    print("-" * 80)
-    print("There is sufficient statistical evidence to conclude that the center of mass")
-    print("of tornado occurrences in Texas has changed significantly over time (1950-2021).")
-    if p_value_lat < ALPHA:
-        direction_lat = "northward" if slope_lat > 0 else "southward"
-        print(f"\n  - Latitude: Significant shift {direction_lat} (p = {p_value_lat:.4f})")
-        print(f"    Rate: {abs(slope_lat):.6f} degrees/year")
-    if p_value_lon < ALPHA:
-        direction_lon = "eastward" if slope_lon > 0 else "westward"
-        print(f"\n  - Longitude: Significant shift {direction_lon} (p = {p_value_lon:.4f})")
-        print(f"    Rate: {abs(slope_lon):.6f} degrees/year")
-else:
-    print("\n" + "-" * 80)
-    print("RESULT: We FAIL TO REJECT the null hypothesis.")
-    print("-" * 80)
-    print("There is insufficient statistical evidence to conclude that the center of mass")
-    print("of tornado occurrences in Texas has changed significantly over time (1950-2021).")
-    print(f"\n  - Latitude: p = {p_value_lat:.4f} (not significant)")
-    print(f"  - Longitude: p = {p_value_lon:.4f} (not significant)")
-    print("\nNote: This does not prove that no shift has occurred, but rather that")
-    print("we cannot detect a statistically significant linear trend in the data.")
-    print("The shift may be too subtle, non-linear, or require a longer time period to detect.")
-
-print("\n" + "=" * 80)
-print("ANALYSIS COMPLETE")
-print("=" * 80)
 
 plt.show()
