@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 from scipy import stats
 import os
 
+from linear_assumption_tests import test_all_metrics
+
 # Read the dataset
 data_path = '../Data/clean_tornado_tx_1950_2021.csv'
 df = pd.read_csv(data_path)
@@ -70,3 +72,7 @@ summary_df = pd.DataFrame({
 
 summary_df.to_csv(os.path.join('../Data', 'tornado_path_shift_summary.csv'), index=False)
 print(f"Summary statistics saved to {os.path.join('../Data', 'tornado_path_shift_summary.csv')}")
+
+
+# Test all the metrics
+test_all_metrics(yearly, metrics, metric_list=['mag', 'len', 'wid'], outdir='../plots')
