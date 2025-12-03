@@ -29,50 +29,45 @@ def run_regression(x, y):
     return slope, intercept, r**2, p
 
 
-# Plot the magnitude trend
-plt.figure(figsize=(10,6))
-plt.scatter(yearly['yr'], yearly['mag'], s=50, alpha=0.6)
-slope_mag, intercept_mag, r2_mag, p_mag = run_regression(yearly['yr'], yearly['mag'])
-plt.plot(yearly['yr'], intercept_mag + slope_mag * yearly['yr'], 'r--', linewidth=2)
+# Plot the trends
+def plot_trend(df, xcol, ycol, ylabel, title_prefix, outfile):
+    plt.figure(figsize=(10,6))
 
-plt.title(f"Tornado Magnitude Trend Over Time (p={p_mag:.4f})")
-plt.xlabel("Year")
-plt.ylabel("Average Magnitude (F-scale)")
-plt.grid(True, alpha=0.3)
-plt.savefig("../plots/magnitude_trend.png", dpi=300)
+    # Scatter
+    plt.scatter(df[xcol], df[ycol], s=50, alpha=0.6)
 
-# Plot the length trend
-plt.figure(figsize=(10,6))
-plt.scatter(yearly['yr'], yearly['len'], s=50, alpha=0.6)
-slope_len, intercept_len, r2_len, p_len = run_regression(yearly['yr'], yearly['len'])
-plt.plot(yearly['yr'], intercept_len + slope_len * yearly['yr'], 'r--', linewidth=2)
+    # Regression
+    slope, intercept, r2, p = run_regression(df[xcol], df[ycol])
+    plt.plot(df[xcol], intercept + slope * df[xcol], 'r--', linewidth=2)
 
-plt.title(f"Tornado Length Trend Over Time (p={p_len:.4f})")
-plt.xlabel("Year")
-plt.ylabel("Average Length (miles)")
-plt.grid(True, alpha=0.3)
-plt.savefig("../plots/length_trend.png", dpi=300)
+    # Labels & Style
+    plt.title(f"{title_prefix} (p={p:.4f})")
+    plt.xlabel(xcol.capitalize())
+    plt.ylabel(ylabel)
+    plt.grid(True, alpha=0.3)
 
-# Plot the width trend
-plt.figure(figsize=(10,6))
-plt.scatter(yearly['yr'], yearly['wid'], s=50, alpha=0.6)
-slope_wid, intercept_wid, r2_wid, p_wid = run_regression(yearly['yr'], yearly['wid'])
-plt.plot(yearly['yr'], intercept_wid + slope_wid * yearly['yr'], 'r--', linewidth=2)
+    # Save
+    plt.savefig(outfile, dpi=300)
+    plt.close()
 
-plt.title(f"Tornado Width Trend Over Time (p={p_wid:.4f})")
-plt.xlabel("Year")
-plt.ylabel("Average Width (yards)")
-plt.grid(True, alpha=0.3)
-plt.savefig("../plots/width_trend.png", dpi=300)
+    return slope, intercept, r2, p
+
+# Calculate metrics
+metrics = {
+    'mag': plot_trend(yearly, 'yr', 'mag', "Average Magnitude (F-scale)", "Tornado Magnitude Trend Over Time", "../plots/magnitude_trend.png"),
+    'len': plot_trend(yearly, 'yr', 'len', "Average Length (miles)", "Tornado Length Trend Over Time", "../plots/length_trend.png"),
+    'wid': plot_trend(yearly, 'yr', 'wid', "Average Width (yards)", "Tornado Width Trend Over Time", "../plots/width_trend.png")
+}
 
 # Summary dataframe
 summary_df = pd.DataFrame({
     'metric': ['mag_slope', 'mag_r2', 'mag_p',
                'len_slope', 'len_r2', 'len_p',
                'wid_slope', 'wid_r2', 'wid_p'],
-    'value': [slope_mag, r2_mag, p_mag,
-              slope_len, r2_len, p_len,
-              slope_wid, r2_wid, p_wid]
+    'value': [metrics['mag'][0], metrics['mag'][2], metrics['mag'][3],
+              metrics['len'][0], metrics['len'][2], metrics['len'][3],
+              metrics['wid'][0], metrics['wid'][2], metrics['wid'][3]]
 })
 
-summary_df.to_csv("../Data/tornado_intensity_trend_summary.csv", index=False)
+summary_df.to_csv(os.path.join('../Data', 'tornado_path_shift_summary.csv'), index=False)
+print(f"Summary statistics saved to {os.path.join('../Data', 'tornado_path_shift_summary.csv')}")
