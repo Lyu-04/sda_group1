@@ -33,7 +33,7 @@ Thus, we fail to reject the null hypothesis and conclude that there is no
 statistically significant evidence that tornadoes in Texas have shifted eastward
 or westward over the study period.
 
-The model explains very little variance (R² = 0.0026), indicating that the
+The model explains very little variance (R^2 = 0.0026), indicating that the
 observed east-west variability is dominated by natural annual fluctuations rather
 than a long-term linear shift.
 
