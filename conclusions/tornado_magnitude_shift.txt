@@ -2,13 +2,13 @@
 - Null Hypothesis (H0): Magnitude does not change over time.
 
 A linear regression of average annual tornado magnitude against year showed a
-significant negative trend. The slope was –0.0155, and the corresponding
+significant negative trend. The slope was -0.0155, and the corresponding
 hypothesis test yielded p < 0.001 (p = 6.5 * 10^-17).
 
 Because the p-value is well below the 0.05 threshold, we reject the null hypothesis
 and conclude that reported tornado magnitudes have decreased significantly over time.
 
-The model explains a large portion of the variance (R² = 0.63), indicating a strong
+The model explains a large portion of the variance (R^2 = 0.63), indicating a strong
 linear relationship.
 
 

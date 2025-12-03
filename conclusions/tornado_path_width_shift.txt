@@ -1,5 +1,5 @@
 - Research Question   : Does tornado path width change over time?
-- Null Hypothesis (H0): Path width does not change over time (slope = 0).
+- Null Hypothesis (H0): Path width does not change over time.
 
 The regression analysis indicated a positive slope (+0.450), but the p-value
 was 0.135, which is greater than 0.05.
