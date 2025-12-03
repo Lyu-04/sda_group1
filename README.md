@@ -22,7 +22,7 @@ python3 <filename>.py
 - `tornado_map_magnitude.py` - Geographic map colored by tornado magnitude
 - `tornado_map_size.py` - Geographic map colored by tornado width
 - `tornado_center_of_mass_shift.py` - **Center of mass shift analysis** - Analyzes whether the geographic center of tornadoes in Texas is shifting over time (1950-2021), with statistical significance testing
-- `tornado_path_shift.py` - **Path and magnitude shift analysis** - Analyzes whether the path and magnitude of tornadoes in Texas is shifting over time (1950-2021)
+- `tornado_path_mag_trends.py` - **Path and magnitude shift analysis** - Analyzes whether the path and magnitude of tornadoes in Texas is shifting over time (1950-2021)
 
 Generated plots are saved to `plots/`.
 
