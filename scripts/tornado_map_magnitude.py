@@ -7,7 +7,7 @@ import os
 plt.rcParams['figure.figsize'] = (12, 10)
 
 # Read the dataset
-data_path = '../Data/clean_tornado_tx_1950_2021.csv'
+data_path = '../Data/cleaned/clean_tornado_tx_1950_2021.csv'
 df = pd.read_csv(data_path)
 
 # Filter out invalid coordinates (0.0, 0.0) and invalid magnitudes
@@ -52,7 +52,7 @@ ax.grid(True, alpha=0.3, linestyle='--')
 ax.set_aspect('equal', adjustable='box')
 
 # Save the plot
-output_dir = '../plots'
+output_dir = '../plots/maps'
 os.makedirs(output_dir, exist_ok=True)
 plt.savefig(os.path.join(output_dir, 'tornado_map_magnitude.png'),
             dpi=300, bbox_inches='tight')
