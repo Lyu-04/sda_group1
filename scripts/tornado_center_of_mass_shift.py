@@ -272,5 +272,4 @@ plt.show()
 # STEP 5: Test all the metrics
 # ============================================================================
 
-# Test all the metrics
 test_linearity_all_metrics(com_by_year, metrics, metric_list=['com_lat', 'com_lon'], outdir='../plots/residuals')
