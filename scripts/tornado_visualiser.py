@@ -1,7 +1,7 @@
 import csv
 import matplotlib.pyplot as plt
 
-input_file = r"Data\cleaned\clean_tornado_tx_1970_2021.csv"
+input_file = "../Data/cleaned/clean_tornado_tx_1970_2021.csv"
 
 
 # all daat in easier to work with lists

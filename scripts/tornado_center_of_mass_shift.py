@@ -81,13 +81,6 @@ metrics = {
 }
 
 # ============================================================================
-# STEP 3: Create Visualizations
-# ============================================================================
-
-output_dir = '../plots'
-os.makedirs(output_dir, exist_ok=True)
-
-# ============================================================================
 # Figure 1: Center of Mass Trajectory Plots (Grouped Together)
 # ============================================================================
 
@@ -164,7 +157,7 @@ plot_trajectory(ax2, com_by_5yr, period_colors,
                 zoom=False, label_every=3)
 
 plt.tight_layout()
-output_path1 = os.path.join(output_dir, 'tornado_center_of_mass_trajectories.png')
+output_path1 = os.path.join('../plots', 'tornado_center_of_mass_trajectories.png')
 plt.savefig(output_path1, dpi=300, bbox_inches='tight')
 print(f"\nTrajectory plots saved to {output_path1}")
 
@@ -199,7 +192,7 @@ ax3.legend()
 ax3.grid(True, alpha=0.3)
 
 plt.tight_layout()
-output_path2 = os.path.join(output_dir, 'center_of_mass_trend.png')
+output_path2 = os.path.join('../plots/trends', 'center_of_mass_trend.png')
 plt.savefig(output_path2, dpi=300, bbox_inches='tight')
 print(f"Time series plots saved to {output_path2}")
 
@@ -238,7 +231,7 @@ plot_trajectory(axes[1, 1], com_by_5yr, period_colors,
                 '5-Year Period Start', zoom=False, label_every=3)
 
 plt.tight_layout()
-output_path_combined = os.path.join(output_dir, 'tornado_center_of_mass_shift.png')
+output_path_combined = os.path.join('../plots', 'tornado_center_of_mass_shift.png')
 plt.savefig(output_path_combined, dpi=300, bbox_inches='tight')
 print(f"Combined plot saved to {output_path_combined}")
 
@@ -247,7 +240,7 @@ print(f"Combined plot saved to {output_path_combined}")
 # ============================================================================
 
 # Save center of mass data
-results_dir = '../Data'
+results_dir = '../Data/processed'
 os.makedirs(results_dir, exist_ok=True)
 
 # Save by decade
@@ -271,7 +264,7 @@ summary = {
               p_value_lat, p_value_lon]
 }
 summary_df = pd.DataFrame(summary)
-summary_df.to_csv(os.path.join(results_dir, 'center_of_mass_shift_summary.csv'), index=False)
+summary_df.to_csv(os.path.join('../Data/results', 'center_of_mass_shift_summary.csv'), index=False)
 
 plt.show()
 
@@ -280,4 +273,4 @@ plt.show()
 # ============================================================================
 
 # Test all the metrics
-test_linearity_all_metrics(com_by_year, metrics, metric_list=['com_lat', 'com_lon'], outdir=output_dir)
+test_linearity_all_metrics(com_by_year, metrics, metric_list=['com_lat', 'com_lon'], outdir='../plots/residuals')

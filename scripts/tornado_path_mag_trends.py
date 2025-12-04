@@ -71,7 +71,7 @@ summary_df = pd.DataFrame({
 })
 
 summary_df.to_csv(os.path.join('../Data/results', 'tornado_path_shift_summary.csv'), index=False)
-print(f"Summary statistics saved to {os.path.join('../Data', 'tornado_path_shift_summary.csv')}")
+print(f"Summary statistics saved to {os.path.join('../Data/results', 'tornado_path_shift_summary.csv')}")
 
 
 # Test all the metrics
