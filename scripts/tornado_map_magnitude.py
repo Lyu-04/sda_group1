@@ -7,7 +7,7 @@ import os
 plt.rcParams['figure.figsize'] = (12, 10)
 
 # Read the dataset
-data_path = '../Data/clean_tornado_tx_1950_2021.csv'
+data_path = '../Data/cleaned/clean_tornado_tx_1950_2021.csv'
 df = pd.read_csv(data_path)
 
 # Filter out invalid coordinates (0.0, 0.0) and invalid magnitudes
