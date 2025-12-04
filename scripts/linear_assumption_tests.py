@@ -14,7 +14,7 @@ def plot_residuals_vs_year(yearly, metrics, metric, outdir='../plots/residuals')
     outdir : str
         Directory to save plots
     """
-    slope, intercept, r2, p = metrics[metric]
+    slope, intercept, _, _ = metrics[metric]
     residuals = yearly[metric] - (intercept + slope * yearly['yr'])
 
     plt.figure(figsize=(10,6))

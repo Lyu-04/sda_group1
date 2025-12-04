@@ -6,7 +6,7 @@ import pandas as pd
 # ============================================================
 
 # Tornado data (full period)
-dt_raw = pd.read_csv("clean_tornado_tx_1950_2021.csv", parse_dates=["date"])
+dt_raw = pd.read_csv("cleaned/clean_tornado_tx_1950_2021.csv", parse_dates=["date"])
 
 # Keep only events from 1986 onward
 dt = dt_raw[dt_raw["yr"] >= 1986].copy()
