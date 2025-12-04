@@ -157,7 +157,7 @@ plot_trajectory(ax2, com_by_5yr, period_colors,
                 zoom=False, label_every=3)
 
 plt.tight_layout()
-output_path1 = os.path.join('../plots', 'tornado_center_of_mass_trajectories.png')
+output_path1 = os.path.join('../plots/maps', 'tornado_center_of_mass_trajectories.png')
 plt.savefig(output_path1, dpi=300, bbox_inches='tight')
 print(f"\nTrajectory plots saved to {output_path1}")
 

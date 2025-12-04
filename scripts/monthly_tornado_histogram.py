@@ -42,8 +42,8 @@ for bar in bars:
 
 plt.grid(axis='y', alpha=0.3, linestyle='--')
 
-# Save the plot
-output_dir = '../plots'
+# Save the plot into the distributions subfolder
+output_dir = '../plots/distributions'
 os.makedirs(output_dir, exist_ok=True)
 plt.savefig(os.path.join(output_dir, 'monthly_tornado_histogram.png'))
 print(f"Plot saved to {os.path.join(output_dir, 'monthly_tornado_histogram.png')}")
