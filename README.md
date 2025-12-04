@@ -16,8 +16,8 @@ This project analyzes tornadoes in Texas from 1950-2021, focusing on:
 
 Data-prep scripts (run from the `Data/` folder):
 
-- `tornado_cleaner.py` – filters the US dataset to Texas (1970-2021) and removes outliers
-- `CIproject_combining_datasets.py` – matches tornado events to gridded weather data and writes `final/final_data1.csv`
+- `tornado_cleaner.py` - filters the US dataset to Texas (1970-2021) and removes outliers
+- `CIproject_combining_datasets.py` - matches tornado events to gridded weather data and writes `final/final_data1.csv`
 
 ## Main analysis scripts
 
@@ -46,14 +46,14 @@ Some important analyses:
 
 Generated figures are saved into subfolders under `plots/`:
 
-- `plots/trends/` – time‑trend figures (center of mass, magnitude, length, width)
-- `plots/maps/` – spatial maps of tornado locations and center-of-mass trajectories
-  - `tornado_map_magnitude.py` – map colored by tornado magnitude
-  - `tornado_map_size.py` – map colored by tornado width
-  - `tornado_center_of_mass_shift.py` – saves center-of-mass trajectory maps here
-- `plots/distributions/` – distribution-style plots (e.g. `monthly_tornado_histogram.py`)
-- `plots/correlations/` – correlation matrices from `correlation_matrix.py` and `correlation_matrix_condensed.py`
-- `plots/residuals/` – regression diagnostic plots from the linear assumption tests
+- `plots/trends/` - time‑trend figures (center of mass, magnitude, length, width)
+- `plots/maps/` - spatial maps of tornado locations and center-of-mass trajectories
+  - `tornado_map_magnitude.py` - map colored by tornado magnitude
+  - `tornado_map_size.py` - map colored by tornado width
+  - `tornado_center_of_mass_shift.py` - saves center-of-mass trajectory maps here
+- `plots/distributions/` - distribution-style plots (e.g. `monthly_tornado_histogram.py`)
+- `plots/correlations/` - correlation matrices from `correlation_matrix.py` and `correlation_matrix_condensed.py`
+- `plots/residuals/` - regression diagnostic plots from the linear assumption tests
 
 ## Requirements
 
