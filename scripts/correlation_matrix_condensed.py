@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import os
 
 # Read the dataset
-data_path = '../Data/final_data.csv'
+data_path = '../Data/final_data1.csv'
 df = pd.read_csv(data_path)
 
 # You can change cols_to_drop to drop other desired columns if you want

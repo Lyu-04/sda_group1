@@ -151,9 +151,6 @@ def plot_trajectory(ax, com_data, colors, title, colorbar_label, zoom=False, lab
     ax.grid(True, alpha=0.3)
     ax.set_aspect('equal', adjustable='box')
 
-    if zoom:
-        ax.set_xlim(lon_lim)
-        ax.set_ylim(lat_lim)
 
 fig1, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 8))
 
