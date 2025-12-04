@@ -51,7 +51,7 @@ ax.grid(True, alpha=0.3, linestyle='--')
 # Set aspect ratio to maintain geographic proportions
 ax.set_aspect('equal', adjustable='box')
 
-# Save the plot into the maps subfolder
+# Save the plot
 output_dir = '../plots/maps'
 os.makedirs(output_dir, exist_ok=True)
 plt.savefig(os.path.join(output_dir, 'tornado_map_magnitude.png'),
