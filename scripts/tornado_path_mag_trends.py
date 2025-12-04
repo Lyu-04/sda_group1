@@ -76,4 +76,4 @@ print(f"Summary statistics saved to {os.path.join('../Data', 'tornado_path_shift
 
 
 # Test all the metrics
-test_linearity_all_metrics(yearly, metrics, metric_list=['mag', 'len', 'wid'], outdir='../plots')
+test_linearity_all_metrics(yearly, metrics, metric_list=['mag', 'len', 'wid'], outdir='../plots/residuals')

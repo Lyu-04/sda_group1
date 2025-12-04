@@ -1,7 +1,7 @@
 import os
 import matplotlib.pyplot as plt
 
-def plot_residuals_vs_year(yearly, metrics, metric, outdir='../plots'):
+def plot_residuals_vs_year(yearly, metrics, metric, outdir='../plots/residuals'):
     """
     Plot residuals of a metric vs year.
 
@@ -16,14 +16,14 @@ def plot_residuals_vs_year(yearly, metrics, metric, outdir='../plots'):
     """
     slope, intercept, r2, p = metrics[metric]
     residuals = yearly[metric] - (intercept + slope * yearly['yr'])
-    
+
     plt.figure(figsize=(10,6))
     plt.scatter(yearly['yr'], residuals, alpha=0.6)
     plt.axhline(0, color='red', linestyle='--')
     plt.xlabel('Year')
     plt.ylabel('Residuals')
     plt.title(f'Residuals vs Year ({metric})')
-    
+
     os.makedirs(outdir, exist_ok=True)
     outfile = os.path.join(outdir, f'residuals_vs_year_{metric}.png')
     plt.savefig(outfile, dpi=300)

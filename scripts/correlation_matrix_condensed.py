@@ -28,7 +28,7 @@ sns.heatmap(
 plt.title("Correlation Matrix: Texas Tornado Meteorological Factors")
 
 # Save the plot
-output_dir = '../plots'
+output_dir = '../plots/correlations'
 os.makedirs(output_dir, exist_ok=True)
 plt.savefig(os.path.join(output_dir, 'correlation_matrix_condensed.png'))
 print(f"Plot saved to {os.path.join(output_dir, 'correlation_matrix_condensed.png')}")
