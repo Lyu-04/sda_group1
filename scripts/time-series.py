@@ -26,9 +26,9 @@ ax2.scatter(lon_min_1, lon_list, alpha = 0.1)
 ax2.set_xlabel("longitude (-1)")
 ax2.set_ylabel("longitude")
 
-plt.show()
-
 output_dir = '../plots'
 os.makedirs(output_dir, exist_ok=True)
 plt.savefig(os.path.join(output_dir, 'tornado_time_series.png'))
 print(f"Plot saved to {os.path.join(output_dir, 'tornado_time_series.png')}")
+
+plt.show()
