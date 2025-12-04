@@ -3,8 +3,8 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import os
 
-# Read the dataset
-data_path = '../Data/final_data1.csv'
+# Read the dataset from the final data folder
+data_path = '../Data/final/final_data1.csv'
 df = pd.read_csv(data_path)
 
 # You can change cols_to_drop to drop other desired columns if you want

@@ -2,7 +2,7 @@ import pandas as pd
 import os
 import matplotlib.pyplot as plt
 
-input_file = "../Data/final_data1.csv"
+input_file = "../Data/final/final_data1.csv"
 df = pd.read_csv(input_file)
 
 lat_list = []

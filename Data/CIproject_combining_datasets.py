@@ -107,7 +107,9 @@ print(f"Final matched rows (one per tornado event): {len(nearest_matches)}")
 # 4. SAVE FINAL RESULT
 # ============================================================
 
-output_file = "final_data1.csv"
+# Save the matched dataset into the final data folder.
+# Note: expect this script to be run from the `Data` directory.
+output_file = "final/final_data1.csv"
 nearest_matches.to_csv(output_file, index=False)
 
 print(f"Done. Saved {output_file} with {len(nearest_matches)} rows.")

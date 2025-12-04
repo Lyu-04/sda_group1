@@ -3,7 +3,8 @@
 import csv
 
 # data file to clean and cleaned file
-input_file = "us_tornado_dataset_1950_2021.csv"
+# Note: expect this script to be run from the `Data` directory
+input_file = "raw/us_tornado_dataset_1950_2021.csv"
 output_file = "cleaned/clean_tornado_tx_1970_2021.csv"
 
 
