@@ -31,7 +31,7 @@ def plot_residuals_vs_year(yearly, metrics, metric, outdir='../plots/residuals')
     print(f"Residual plot saved to {outfile}")
 
 
-def test_linearity_all_metrics(yearly, metrics, metric_list, outdir='../plots'):
+def test_linearity_all_metrics(yearly, metrics, metric_list, outdir='../plots/residuals'):
     """
     Loop over metrics and plot residuals for each.
 
