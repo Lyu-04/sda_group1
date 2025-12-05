@@ -7,7 +7,7 @@ import os
 plt.rcParams['figure.figsize'] = (12, 10)
 
 # Read the dataset
-data_path = '../Data/clean_tornado_tx_1950_2021.csv'
+data_path = '../Data/cleaned/clean_tornado_tx_1950_2021.csv'
 df = pd.read_csv(data_path)
 
 # Filter out invalid coordinates (0.0, 0.0), invalid widths, and very small tornadoes (< 30 yards)
@@ -33,12 +33,12 @@ width_log_normalized = (width_log - width_log.min()) / (width_log.max() - width_
 
 # Create scatter plot colored by tornado width (size) with log scale
 # Using log-transformed values for better color distribution across wide range
-scatter = ax.scatter(df_clean['slon'], df_clean['slat'], 
-                     c=width_log_normalized, 
-                     cmap='viridis', 
-                     s=marker_sizes, 
-                     alpha=alpha_values, 
-                     edgecolors='black', 
+scatter = ax.scatter(df_clean['slon'], df_clean['slat'],
+                     c=width_log_normalized,
+                     cmap='viridis',
+                     s=marker_sizes,
+                     alpha=alpha_values,
+                     edgecolors='black',
                      linewidths=0.2)
 
 # Customizations to the plot
@@ -51,11 +51,11 @@ log_ticks = np.logspace(np.log10(width_min + 1), np.log10(width_max + 1), num=6,
 log_tick_positions = (np.log10(log_ticks + 1) - width_log.min()) / (width_log.max() - width_log.min())
 cbar.set_ticks(log_tick_positions)
 cbar.set_ticklabels([f'{int(t)}' for t in log_ticks])
-cbar.set_label('Tornado Width (yards, log scale)', 
+cbar.set_label('Tornado Width (yards, log scale)',
                fontsize=12, fontweight='bold')
 ax.set_xlabel('Longitude', fontsize=12, fontweight='bold')
 ax.set_ylabel('Latitude', fontsize=12, fontweight='bold')
-ax.set_title(f'Tornado Locations in Texas Colored by Size (Width ≥ {min_width} yards) (1950-2021)', 
+ax.set_title(f'Tornado Locations in Texas Colored by Size (Width ≥ {min_width} yards) (1950-2021)',
              fontsize=14, fontweight='bold', pad=20)
 ax.grid(True, alpha=0.3, linestyle='--')
 
@@ -63,9 +63,9 @@ ax.grid(True, alpha=0.3, linestyle='--')
 ax.set_aspect('equal', adjustable='box')
 
 # Save the plot
-output_dir = '../plots'
+output_dir = '../plots/maps'
 os.makedirs(output_dir, exist_ok=True)
-plt.savefig(os.path.join(output_dir, 'tornado_map_size.png'), 
+plt.savefig(os.path.join(output_dir, 'tornado_map_size.png'),
             dpi=300, bbox_inches='tight')
 print(f"Plot saved to {os.path.join(output_dir, 'tornado_map_size.png')}")
 

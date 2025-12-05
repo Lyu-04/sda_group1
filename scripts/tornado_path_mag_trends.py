@@ -7,7 +7,7 @@ from linear_assumption_tests import test_linearity_all_metrics
 
 
 # Read the dataset
-data_path = '../Data/clean_tornado_tx_1950_2021.csv'
+data_path = '../Data/cleaned/clean_tornado_tx_1950_2021.csv'
 df = pd.read_csv(data_path)
 
 # Only valid magnitudes and lengths
@@ -22,8 +22,6 @@ yearly = df.groupby('yr').agg({
     'wid': 'mean',
     'yr': 'count'
 }).rename(columns={'yr': 'count'}).reset_index()
-
-print(yearly)
 
 # Linear regression function
 def run_regression(x, y):
@@ -51,14 +49,15 @@ def plot_trend(df, xcol, ycol, ylabel, title_prefix, outfile):
     # Save
     plt.savefig(outfile, dpi=300)
     plt.close()
+    print(f"Trend plot saved to {outfile}")
 
     return slope, intercept, r2, p
 
 # Calculate metrics
 metrics = {
-    'mag': plot_trend(yearly, 'yr', 'mag', "Average Magnitude (F-scale)", "Tornado Magnitude Trend Over Time", "../plots/magnitude_trend.png"),
-    'len': plot_trend(yearly, 'yr', 'len', "Average Length (miles)", "Tornado Length Trend Over Time", "../plots/length_trend.png"),
-    'wid': plot_trend(yearly, 'yr', 'wid', "Average Width (yards)", "Tornado Width Trend Over Time", "../plots/width_trend.png")
+    'mag': plot_trend(yearly, 'yr', 'mag', "Average Magnitude (F-scale)", "Tornado Magnitude Trend Over Time", "../plots/trends/magnitude_trend.png"),
+    'len': plot_trend(yearly, 'yr', 'len', "Average Length (miles)", "Tornado Length Trend Over Time", "../plots/trends/length_trend.png"),
+    'wid': plot_trend(yearly, 'yr', 'wid', "Average Width (yards)", "Tornado Width Trend Over Time", "../plots/trends/width_trend.png")
 }
 
 # Summary dataframe
@@ -71,9 +70,9 @@ summary_df = pd.DataFrame({
               metrics['wid'][0], metrics['wid'][2], metrics['wid'][3]]
 })
 
-summary_df.to_csv(os.path.join('../Data', 'tornado_path_shift_summary.csv'), index=False)
-print(f"Summary statistics saved to {os.path.join('../Data', 'tornado_path_shift_summary.csv')}")
+summary_df.to_csv(os.path.join('../Data/results', 'tornado_path_shift_summary.csv'), index=False)
+print(f"Summary statistics saved to {os.path.join('../Data/results', 'tornado_path_shift_summary.csv')}")
 
 
 # Test all the metrics
-test_linearity_all_metrics(yearly, metrics, metric_list=['mag', 'len', 'wid'], outdir='../plots')
+test_linearity_all_metrics(yearly, metrics, metric_list=['mag', 'len', 'wid'], outdir='../plots/residuals')
