@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-input_file = r"Data\clean_tornado_tx_1970_2021.csv"
+input_file = r"Data\cleaned\clean_tornado_tx_1970_2021.csv"
 df = pd.read_csv(input_file)
 
 counts = df["date"].value_counts().sort_index()
