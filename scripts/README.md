@@ -21,9 +21,9 @@ so the relative `../Data` and `../plots` paths resolve.
 
 - `correlation_matrix_condensed.py` - Drops non-meteorological columns first, then builds a correlation heatmap. Output `../plots/correlations/correlation_matrix_condensed.png`.
 
-- `linear_assumption_tests.py` - Helper functions to plot residuals vs year for regression metrics. Used by other scripts (`tornado_center_of_mass_shift.py`, `tornado_path_mag_trends.py`). Usage: import `test_linearity_all_metrics(...)` or `plot_residuals_vs_year(...)`.
+- `linear_assumption_tests.py` - Helper functions to plot residuals vs year for regression metrics. Used by other scripts. Usage: import `test_linearity_all_metrics(...)` or `plot_residuals_vs_year(...)`.
 
-- `monthly_tornado_histogram.py` - Histogram of Texas tornado counts by month (1950-2021) from `clean_tornado_tx_1950_2021.csv`. Saves `../plots/distributions/monthly_tornado_histogram.png` and prints totals.
+- `monthly_tornado_histogram.py` - Histogram of Texas tornado counts by month (1950-2021). Saves `../plots/distributions/monthly_tornado_histogram.png` and prints totals.
 
 - `storm_length.py` - [EXPLANATION!!!]
 
@@ -35,10 +35,15 @@ so the relative `../Data` and `../plots` paths resolve.
 
 - `tornado_map_size.py` - Maps tornado locations colored/scaled by path width (filters width ≥ 30 yards). Saves `../plots/maps/tornado_map_size.png` and prints width stats.
 
-- `tornado_path_mag_trends.py` - Computes yearly mean magnitude/length/width trends with linear fits. Saves trend plots to `../plots/trends/*.png`, summary CSV to `../Data/results/tornado_path_shift_summary.csv`, and residual plots via `linear_assumption_tests`.
+- `tornado_path_mag_trends.py` - Computes yearly mean magnitude/length/width trends with linear fits. Saves trend plots to `../plots/trends/`, summary CSV to `../Data/results/tornado_path_shift_summary.csv`, and residual plots via `linear_assumption_tests`.
 
 - `tornado_visualiser.py` - [EXPLANATION!!!]
 
 ## Requirements
 - Python 3.x
-- Packages: `pandas`, `matplotlib`, `seaborn`, `numpy`, `scipy`
+
+- pandas
+- matplotlib
+- numpy
+- scipy
+- seaborn
