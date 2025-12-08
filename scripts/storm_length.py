@@ -11,5 +11,6 @@ plt.xticks(range(1, max(counts) - 1))
 plt.xlabel("storm duration (# tornado's)")
 plt.ylabel("frequencies")
 plt.legend(loc="best")
-plt.show()
 plt.savefig(r"plots\storm_lengths_hist.png")
+plt.show()
+
