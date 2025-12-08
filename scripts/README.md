@@ -41,7 +41,7 @@ so the relative `../Data` and `../plots` paths resolve.
 
 ## Requirements
 - Python 3.x
-
+### Packages
 - pandas
 - matplotlib
 - numpy
