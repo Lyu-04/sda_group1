@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+from scipy import stats
 
 input_file = r"Data\final\final_data1.csv"
 df = pd.read_csv(input_file)
@@ -30,6 +31,11 @@ for i in range(1, len(storm_df)):
     avg_lon_list.append(storm_df["avg_lon"][i])
     avg_lon_min_1.append(storm_df["avg_lon"][i-1])
 
+#correlation and p value for storms
+r_lat, p_value_lat = stats.pearsonr(avg_lat_min_1, avg_lat_list)
+r_lon, p_value_lon = stats.pearsonr(avg_lon_min_1, avg_lon_list)
+print(f"for the avg storm latitutde r = {r_lat} and p = {p_value_lat}")
+print(f"for the avg storm longitude r = {r_lon} and p = {p_value_lon}")
 
 # plotting
 fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2)
