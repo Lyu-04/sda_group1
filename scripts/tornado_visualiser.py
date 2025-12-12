@@ -1,7 +1,7 @@
 import csv
 import matplotlib.pyplot as plt
 
-input_file = r"Data\clean_tornado_tx_1970_2021.csv"
+input_file = "../Data/cleaned/clean_tornado_tx_1970_2021.csv"
 
 
 # all daat in easier to work with lists
@@ -42,7 +42,7 @@ with open(input_file, newline="", encoding="utf-8") as file:
 def month_plot(month_list):
     for i in range(len(month_list)):
         month_list[i] = int(month_list[i])
-    
+
     plt.hist(month_list, bins = [i - 0.5 for i in range(1, 14)], label = "month", edgecolor="k")
     plt.xticks(range(1, 13))
     plt.xlabel("month")
@@ -64,7 +64,7 @@ def year_plot(year_list):
 def magnitude_plot(mag_list):
     for i in range(len(mag_list)):
         mag_list[i] = int(mag_list[i])
-    
+
     plt.hist(mag_list, bins = [i-0.5 for i in range(1, 6)], label = "magnitude", edgecolor = "k")
     plt.xticks(range(1, 5))
     plt.xlabel("magnitude")
@@ -81,8 +81,8 @@ def arrow(slat_list, slon_list, elat_list, elon_list):
         elon = float(elon_list[i])
         # exclude entries with unknown locations
         plt.plot(slon, slat, '.', color = "green")
-        if elon != 0.0 and elat != 0.0 : 
-            plt.plot(elon, elat, '.', color = "red") 
+        if elon != 0.0 and elat != 0.0 :
+            plt.plot(elon, elat, '.', color = "red")
             plt.plot([slon, elon], [slat, elat], color = "black")
     plt.show()
 
