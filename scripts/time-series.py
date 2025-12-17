@@ -38,17 +38,33 @@ print(f"for the avg storm latitutde r = {r_lat} and p = {p_value_lat}")
 print(f"for the avg storm longitude r = {r_lon} and p = {p_value_lon}")
 
 # plotting
-fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2)
+plt.figure(1)
+fig, (ax1, ax2) = plt.subplots(1, 2)
 
 ax1.scatter(lat_min_1, lat_list, alpha = 0.1)
-#ax1.plot(x_lat, lat_fit, label= "lineair fit", color = "black")
 ax1.set_xlabel("latitude (-1)")
 ax1.set_ylabel("latitude")
 ax1.set_ylim(25, 37)
 ax1.set_xlim(25, 37)
 
 ax2.scatter(lon_min_1, lon_list, alpha = 0.1)
-#ax2.plot(x_lon, lon_fit, label= "lineair fit", color = "black")
+ax2.set_xlabel("longitude (-1)")
+ax2.set_ylabel("longitude")
+ax2.set_ylim(-107, -93)
+ax2.set_xlim(-107, -93)
+
+plt.savefig(r"plots\torando_series.png")
+
+plt.figure(2)
+fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2)
+
+ax1.scatter(lat_min_1, lat_list, alpha = 0.1)
+ax1.set_xlabel("latitude (-1)")
+ax1.set_ylabel("latitude")
+ax1.set_ylim(25, 37)
+ax1.set_xlim(25, 37)
+
+ax2.scatter(lon_min_1, lon_list, alpha = 0.1)
 ax2.set_xlabel("longitude (-1)")
 ax2.set_ylabel("longitude")
 ax2.set_ylim(-107, -93)
@@ -67,4 +83,3 @@ ax4.set_ylim(-107, -93)
 ax4.set_xlim(-107, -93)
 
 plt.savefig(r"plots\tornado_time_series.png")
-plt.show()
