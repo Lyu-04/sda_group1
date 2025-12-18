@@ -21,13 +21,15 @@ so the relative `../Data` and `../plots` paths resolve.
 
 - `correlation_matrix_condensed.py` - Drops non-meteorological columns first, then builds a correlation heatmap. Output `../plots/correlations/correlation_matrix_condensed.png`.
 
+- `cross_correlation.py` - calculates the Pearson correlation for lat and lon to lat - x and lon - x. Saves plot of 40 steps back to `../plots/cross_correlation_tornadoes.png`
+
 - `linear_assumption_tests.py` - Helper functions to plot residuals vs year for regression metrics. Used by other scripts. Usage: import `test_linearity_all_metrics(...)` or `plot_residuals_vs_year(...)`.
 
 - `monthly_tornado_histogram.py` - Histogram of Texas tornado counts by month (1950-2021). Saves `../plots/distributions/monthly_tornado_histogram.png` and prints totals.
 
-- `storm_length.py` - [EXPLANATION!!!]
+- `storm_length.py` - Script runs through all tornado's and groups together storms on the same day and location. saves this to a similar csv to the tornado data but with the average data for the storm, saves at `../Data/processed/unique_storms.csv`
 
-- `time-series.py` - [EXPLANATION!!!]
+- `time-series.py` - plots lat and lon for tornado occurances against previous data points. also does this for the grouped storm data. outputs two plots. `../plots/tornado_series.png` for tornadoes and `../plots/tornado_time_series.png` for tornadoes and storms combined. Prints r and p values for the storm data. 
 
 - `tornado_center_of_mass_shift.py` - Tracks and visualizes the spatial center of mass of tornadoes over decades/5-year periods/years. Saves multiple maps and trend plots to `../plots` and CSV summaries to `../Data/processed` and `../Data/results`. Uses SciPy for regressions and `linear_assumption_tests` for residual checks.
 
@@ -37,7 +39,7 @@ so the relative `../Data` and `../plots` paths resolve.
 
 - `tornado_path_mag_trends.py` - Computes yearly mean magnitude/length/width trends with linear fits. Saves trend plots to `../plots/trends/`, summary CSV to `../Data/results/tornado_path_shift_summary.csv`, and residual plots via `linear_assumption_tests`.
 
-- `tornado_visualiser.py` - [EXPLANATION!!!]
+- `tornado_visualiser.py` - script contains functions to display values from the tornado data
 
 ## Requirements
 - Python 3.x
