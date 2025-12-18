@@ -1,68 +1,66 @@
-# SDA Group 1 - Tornado Analysis (Texas, 1950-2021)
+## SDA Group 1 – Tornado Analysis in Texas (1950-2021)
 
-This project analyzes tornadoes in Texas from 1950-2021, focusing on:
+This repository contains an end‑to‑end analysis of tornadoes in Texas from 1950-2021.  
+We investigate **where**, **how strong**, and **how large** tornadoes have been over time, with a focus on:
 
-- Spatial shifts in the **center of mass** of tornado occurrence over time
-- Temporal trends in **magnitude**, **path length**, and **path width**
-- Descriptive distributions (like monthly frequency) and spatial maps
+- **Spatial shifts** in the center of mass of tornado occurrence
+- **Temporal trends** in magnitude, path length, and path width
+- **Descriptive patterns** in time (e.g. monthly frequency) and space (maps)
+- **Relationships with environmental variables** (correlations and regression-style summaries)
 
-## Data overview
+Our end goal is to try and forecast tornadoes given our research and analyses on the above topics.
 
-- **Raw source**: `Data/raw/us_tornado_dataset_1950_2021.csv`
-- **Cleaned Texas subset**: `Data/cleaned/`
-- **Current final analysis dataset (tornado + weather match)**: `Data/final/final_data1.csv`
-- **Processed summaries** (e.g. center of mass by year/period): `Data/processed/`
-- **Results tables** (regression summaries): `Data/results/`
+For a detailed description of a given folder, see their respective `README.md`, located in their own folders.
 
-Data-prep scripts (run from the `Data/` folder):
+---
 
-- `tornado_cleaner.py` - filters the US dataset to Texas (1970-2021) and removes outliers
-- `CIproject_combining_datasets.py` - matches tornado events to gridded weather data and writes `final/final_data1.csv`
+## Data and processing pipeline
 
-## Main analysis scripts
+- **Raw source data**
+  - `Data/raw/us_tornado_dataset_1950_2021.csv`: CONUS tornado records (SPC-like format).
 
-All analysis/plotting scripts live in `scripts/`. Run them from inside `scripts/`:
+- **Cleaning and Texas subset**
+  - `Data/cleaned/clean_tornado_tx_1950_2021.csv`
+  - `Data/cleaned/clean_tornado_tx_1970_2021.csv`
+  - Generated via scripts in `Data/` (e.g. `tornado_cleaner.py`).
 
-```bash
-cd scripts/
-python3 <filename>.py
-```
+- **Final analysis dataset**
+  - `Data/final/final_data1.csv`: matched tornado events with gridded weather variables, used by most scripts in `scripts/`.
 
-Some important analyses:
+- **Processed summaries**
+  - `Data/processed/` contains aggregated tables such as:
+    - Center of mass by **year**, **5‑year period**, and **decade**
+    - Aggregated storm‑level datasets (e.g. `unique_storms.csv`)
 
-- `tornado_center_of_mass_shift.py`
-  - Computes yearly, 5‑year, and decadal centers of mass for tornado locations
-  - Fits simple linear regressions to test for **latitudinal and longitudinal shifts over time**
-  - Outputs processed center-of-mass (COM) tables to `Data/processed/` and summary stats to `Data/results/center_of_mass_shift_summary.csv`
+- **Results tables**
+  - `Data/results/` holds machine‑readable outputs of the main analyses, e.g.:
+    - `center_of_mass_shift_summary.csv`
+    - `tornado_path_shift_summary.csv`
+    - Class‑imbalance and odds‑ratio summaries for injuries/fatalities in `Data/results/class_imbalance/`
 
-- `tornado_path_mag_trends.py`
-  - Computes yearly averages of **magnitude**, **path length**, and **path width**
-  - Fits linear trends over time and saves summary statistics to `Data/results/tornado_path_shift_summary.csv`
+---
 
-- `linear_assumption_tests.py`  
-  - Provides diagnostics used by the main scripts to check linear model assumptions
+## Analyses performed
 
-## Plots
+All analysis and visualization code is in `scripts/` (see its `README.md` for script‑by‑script details).  
+At a high level, we perform:
 
-Generated figures are saved into subfolders under `plots/`:
+- **Center of mass and spatial shifts**
+- **Trends in magnitude and path geometry**
+- **Descriptive distributions and time series**
+- **Correlation and class imbalance analyses**
 
-- `plots/trends/` - time‑trend figures (center of mass, magnitude, length, width)
-- `plots/maps/` - spatial maps of tornado locations and center-of-mass trajectories
-  - `tornado_map_magnitude.py` - map colored by tornado magnitude
-  - `tornado_map_size.py` - map colored by tornado width
-  - `tornado_center_of_mass_shift.py` - saves center-of-mass trajectory maps here
-- `plots/distributions/` - distribution-style plots (e.g. `monthly_tornado_histogram.py`)
-- `plots/correlations/` - correlation matrices from `correlation_matrix.py` and `correlation_matrix_condensed.py`
-- `plots/residuals/` - regression diagnostic plots from the linear assumption tests
+---
 
-## Requirements
+## Figures and outputs
 
-- pandas
-- matplotlib
-- numpy
-- scipy
-- seaborn
+All plots are stored under `plots/`, with similar plots being located in their own subfolders:
 
-### small note
+- **Trends** (`plots/trends/`): center‑of‑mass trajectories and trends in magnitude, length, and width.
+- **Maps** (`plots/maps/`): spatial distributions of tornado locations, sizes, magnitudes, and center‑of‑mass paths.
+- **Distributions** (`plots/distributions/`): e.g. monthly tornado counts.
+- **Correlations** (`plots/correlations/`): full and condensed correlation matrices.
+- **Residuals/diagnostics** (`plots/residuals/`): linear model assumption checks.
+- **Other**: additional time‑series and storm‑length histograms at the top level of `plots/`.
 
-For the plots of the trajectories of the center of mass of tornadoes, when running `tornado_center_of_mass_shift.py` yourself, you can zoom in using the lens to get a better, more readable view of the trajectories.
+For interpretation notes and textual conclusions, see the `conclusions/` folder.
