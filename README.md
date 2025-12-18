@@ -14,29 +14,18 @@ For a detailed description of a given folder, see their respective `README.md`, 
 
 ---
 
-## Data and processing pipeline
+## Data folder
 
-- **Raw source data**
-  - `Data/raw/us_tornado_dataset_1950_2021.csv`: CONUS tornado records (SPC-like format).
+The `Data/` folder contains all datasets and data-preparation scripts for the project. It includes:
 
-- **Cleaning and Texas subset**
-  - `Data/cleaned/clean_tornado_tx_1950_2021.csv`
-  - `Data/cleaned/clean_tornado_tx_1970_2021.csv`
-  - Generated via scripts in `Data/` (e.g. `tornado_cleaner.py`).
+- **Raw data** (`raw/`): Original U.S. tornado dataset (1950-2021).
+- **Cleaned data** (`cleaned/`): Texas-only subsets with quality control applied.
+- **Final dataset** (`final/`): Tornado events matched with gridded weather variables (the primary analysis dataset).
+- **Processed summaries** (`processed/`): Aggregated tables.
+- **Results** (`results/`): Machine-readable outputs from analyses.
+- **Data preparation scripts**: Scripts to clean tornado data and match it with weather grids.
 
-- **Final analysis dataset**
-  - `Data/final/final_data1.csv`: matched tornado events with gridded weather variables, used by most scripts in `scripts/`.
-
-- **Processed summaries**
-  - `Data/processed/` contains aggregated tables such as:
-    - Center of mass by **year**, **5‑year period**, and **decade**
-    - Aggregated storm‑level datasets (e.g. `unique_storms.csv`)
-
-- **Results tables**
-  - `Data/results/` holds machine‑readable outputs of the main analyses, e.g.:
-    - `center_of_mass_shift_summary.csv`
-    - `tornado_path_shift_summary.csv`
-    - Class‑imbalance and odds‑ratio summaries for injuries/fatalities in `Data/results/class_imbalance/`
+For detailed information about each subfolder, scripts, and data files, see `Data/README.md`.
 
 ---
 
