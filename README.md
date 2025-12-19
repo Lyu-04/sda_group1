@@ -41,7 +41,7 @@ Some important analyses:
 
 - `linear_assumption_tests.py`  
   - Provides diagnostics used by the main scripts to check linear model assumptions
-
+- `scripts/regresion anlysis` - where is 3 files, main one 'regression_tornado.py' is there we tried to forecast tornadoes, calculated probabilities of tornado happening based on weather data, calculated expected fataliies based on weather data. Other two files are for tuning parameters.
 ## Plots
 
 Generated figures are saved into subfolders under `plots/`:
@@ -54,7 +54,7 @@ Generated figures are saved into subfolders under `plots/`:
 - `plots/distributions/` - distribution-style plots (e.g. `monthly_tornado_histogram.py`)
 - `plots/correlations/` - correlation matrices from `correlation_matrix.py` and `correlation_matrix_condensed.py`
 - `plots/residuals/` - regression diagnostic plots from the linear assumption tests
-
+- `plots/regression_analysis/` maps to show our predictions and variables importance: 2 heatmaps(tornado mean probabilities per grid, maximum fatalities per grid through 2015-2021), feature importance for XGBOOST model, daily expeccted fatalities through 2015-2021, average expected fatalities by month through 2015-2021.
 ## Requirements
 
 - pandas
@@ -62,7 +62,20 @@ Generated figures are saved into subfolders under `plots/`:
 - numpy
 - scipy
 - seaborn
+- sklearn
+
 
 ### small note
 
 For the plots of the trajectories of the center of mass of tornadoes, when running `tornado_center_of_mass_shift.py` yourself, you can zoom in using the lens to get a better, more readable view of the trajectories.
+
+
+### Use of AI
+Some parts of code were written with the help of AI, lets go through them:
+1) converting data file from .GRID to .csv.
+
+For the regression:
+2) we haven't worked with XGBOOST and forest model for a while so helped   a little bit to code the model and to use the new libraries.
+3) in the file regression_tornado.py we were overestimating the expected fatalities so with the advice from google an AI we decided to calibrate the probabilities calculated by XGBOOST (lines 273-283).
+4) Wrote a code to tune the hyperparamaters of our models, never done this before so tune_models.py mostly written by AI.
+5) Some code were just hard to write so for the time puposes and not to get stuck, AI helped in some lines( for example taking data in chunks because dataset was too large) but nothing significant.

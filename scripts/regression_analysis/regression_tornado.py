@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-'''
+
 # Weather grid
 grid_file = "grid_all_vars.csv"
 df = pd.read_csv(grid_file, parse_dates=["time"])
@@ -46,17 +46,16 @@ merged_torn = merged[has_tornado].copy()
 if merged_torn.empty:
     raise RuntimeError("No overlapping dates between grid and tornado data for the chosen period.")
 
-# Squared distance in (lat, lon)
+# Squared distance
 merged_torn["dist2"] = (
     (merged_torn["latitude"] - merged_torn["slat"])**2 +
     (merged_torn["longitude"] - merged_torn["slon"])**2
 )
 
-# For each tornado event, keep only the closest grid point
+#For each tornado event, keep only the closest grid point
 idx = merged_torn.groupby("event_id")["dist2"].idxmin()
 nearest = merged_torn.loc[idx, ["date", "latitude", "longitude"]].copy()
 
-# Mark these as tornado=1
 nearest["tornado"] = 1
 
 print("Nearest grid cells (one per tornado):", len(nearest))
@@ -64,14 +63,14 @@ print("Nearest grid cells (one per tornado):", len(nearest))
 # Remove duplicates just in case multiple tornadoes share a cell/date
 nearest = nearest.drop_duplicates(subset=["date", "latitude", "longitude"])
 
-#BUILD FINAL LOGISTIC DATASET (FULL GRID + LABEL)
-# Start with full grid (drop raw time column if not needed)
+#BUILD FINAL LOGISTIC DATASET
+
 df_logit = df.drop(columns=["time"], errors="ignore").copy()
 
 # Default label: no tornado
 df_logit["tornado"] = 0
 
-# Merge in tornado=1 flags
+# Merge in tornado=1
 df_logit = df_logit.merge(
     nearest,
     on=["date", "latitude", "longitude"],
@@ -195,7 +194,7 @@ print(tornado_weather.head())
 
 tornado_weather.to_csv("tornado_weather.csv", index=False)
 print("Saved tornado_weather.csv")
-'''
+
 
 
 
@@ -252,14 +251,13 @@ X_train_t, X_temp_t, y_train_t, y_temp_t = train_test_split(
 X_calib_t, X_test_t, y_calib_t, y_test_t = train_test_split(
     X_temp_t, y_temp_t, test_size=0.5, random_state=42, stratify=y_temp_t
 )
-# 60% train, 20% calib, 20% test
 
 # Compute class imbalance ratio from training set
 neg, pos = (y_train_t == 0).sum(), (y_train_t == 1).sum()
 scale_pos_weight = neg / pos
 print("neg:", neg, "pos:", pos, "scale_pos_weight:", scale_pos_weight)
 
-#base XGBoost model (your tuned params)
+#base XGBoost model
 xgb_base = XGBClassifier(
     n_estimators=330,
     max_depth=7,
@@ -594,7 +592,7 @@ plt.ylabel("Expected Fatalities")
 plt.grid(True)
 
 ax = plt.gca()
-ax.xaxis.set_major_locator(mdates.YearLocator())  # tick every year
+ax.xaxis.set_major_locator(mdates.YearLocator()) 
 ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y"))
 plt.xticks(rotation=45)
 
@@ -618,7 +616,7 @@ plt.xlabel("Month")
 plt.ylabel("Mean Daily Expected Fatalities")
 plt.grid(True)
 plt.tight_layout()
-#plt.show()
+plt.show()
 
 
 FEATURES = ["wind_speed", "d2m", "t2m", "msl", "tcc", "tp", "e", "pev"]

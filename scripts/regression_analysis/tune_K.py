@@ -11,7 +11,7 @@ if "date" in df.columns:
 else:
     df["date"] = df["time"].dt.normalize()
 
-# REAL TORNADO FATALITIES
+
 t = pd.read_csv("clean_tornado_tx_1970_2021.csv", parse_dates=["date"])
 t = t[t["yr"].between(2015, 2020)]
 real_yearly = t.groupby(t["date"].dt.year)["fat"].sum().reset_index()
@@ -23,13 +23,7 @@ print(real_yearly)
 
 # FUNCTION TO EVALUATE K
 def evaluate_K(K, df, real_yearly):
-    """
-    For a given K:
-      - take top-K grids per day by p_tornado
-      - sum expected_fatalities over those K
-      - aggregate to yearly totals
-      - return MAE and comparison table
-    """
+    
     # sort so highest-risk grids come first each day
     df_sorted = df.sort_values(["date", "p_tornado"], ascending=[True, False])
 
@@ -73,9 +67,3 @@ print(results_df)
 # best K
 best_K = results_df.iloc[0]["K"]
 print(f"\nBest K based on MAE = {int(best_K)}")
-
-#SHOW COMPARISON FOR BEST K
-best_mae, best_comp = evaluate_K(int(best_K), df, real_yearly)
-print("\nComparison for best K:")
-print(best_comp)
-print("\nMAE for best K:", best_mae)
