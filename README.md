@@ -7,14 +7,15 @@ This project analyzes tornadoes in Texas from 1950-2021, focusing on:
 - Descriptive distributions (like monthly frequency) and spatial maps
 
 ## Data overview
-
+- The weather grid  dataset( not fitered by taking only days with tornadoes) (`grid_all_vars.csv`, ~5 GB) is not stored in this repository due to GitHub size limitations.
+  The dataset is available at: https://1drv.ms/f/c/e4eaff840ac28774/IgDnssY3ichfRKtKSv3cXirpAWiEJBxR0BiOC1g1OGcd3uc?e=Acvr9b
 - **Raw source**: `Data/raw/us_tornado_dataset_1950_2021.csv`
 - **Cleaned Texas subset**: `Data/cleaned/`
 - **Current final analysis dataset (tornado + weather match)**: `Data/final/final_data1.csv`
 - **Processed summaries** (e.g. center of mass by year/period): `Data/processed/`
 - **Results tables** (regression summaries): `Data/results/`
 
-Data-prep scripts (run from the `Data/` folder):
+  Data-prep scripts (run from the `Data/` folder):
 
 - `tornado_cleaner.py` - filters the US dataset to Texas (1970-2021) and removes outliers
 - `CIproject_combining_datasets.py` - matches tornado events to gridded weather data and writes `final/final_data1.csv`
@@ -29,7 +30,6 @@ python3 <filename>.py
 ```
 
 Some important analyses:
-
 - `tornado_center_of_mass_shift.py`
   - Computes yearly, 5‑year, and decadal centers of mass for tornado locations
   - Fits simple linear regressions to test for **latitudinal and longitudinal shifts over time**
@@ -63,7 +63,7 @@ Generated figures are saved into subfolders under `plots/`:
 - scipy
 - seaborn
 - sklearn
-
+- xarray
 
 ### small note
 
@@ -72,7 +72,7 @@ For the plots of the trajectories of the center of mass of tornadoes, when runni
 
 ### Use of AI
 Some parts of code were written with the help of AI, lets go through them:
-1) converting data file from .GRID to .csv.
+1) converting data file from .grib to .csv. (sqitchgribtocsv.py in data folder)
 
 For the regression:
 2) we haven't worked with XGBOOST and forest model for a while so helped   a little bit to code the model and to use the new libraries.

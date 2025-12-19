@@ -1,10 +1,6 @@
 
 import pandas as pd
-
-# ============================================================
-# 1. LOAD TORNADO DATA
-# ============================================================
-
+# LOAD TORNADO DATA
 # Tornado data (full period)
 dt_raw = pd.read_csv("cleaned/clean_tornado_tx_1950_2021.csv", parse_dates=["date"])
 
@@ -20,13 +16,10 @@ valid_dates = set(dt["date"].unique())
 print(f"Tornado events kept: {len(dt)}")
 print(f"Unique tornado dates: {len(valid_dates)}")
 
-# ============================================================
-# 2. LOAD GRID DATA IN CHUNKS (TO AVOID MEMORY ERROR)
-# ============================================================
 
+#LOAD GRID DATA IN CHUNKS
 grid_file = "grid_all_vars.csv"
 
-# All numeric weather variables as float32 to save RAM
 float_cols = [
     "latitude", "longitude",
     "u10", "v10",
@@ -43,13 +36,12 @@ chunk_index = 0
 for chunk in pd.read_csv(
     grid_file,
     parse_dates=["time"],
-    chunksize=1_000_000,   # adjust if needed based on RAM
+    chunksize=1_000_000,  #chunks size
     dtype=dtype_map
 ):
     chunk_index += 1
     print(f"Processing chunk {chunk_index}...")
 
-    # Drop metadata columns if present
     drop_cols = ["number", "step", "surface", "valid_time"]
     chunk = chunk.drop(columns=[c for c in drop_cols if c in chunk.columns], errors="ignore")
 
@@ -77,14 +69,10 @@ print("Grid columns:", df.columns.tolist())
 # We no longer need the full timestamp column
 df = df.drop(columns=["time"], errors="ignore")
 
-# ============================================================
-# 3. MATCH EACH TORNADO EVENT TO NEAREST GRID POINT (BY LAT/LON)
-# ============================================================
-
 # Give each event a unique id
 dt = dt.reset_index().rename(columns={"index": "event_id"})
 
-# Merge on date → all combinations of grid points & events for same day
+# Merge on date 
 print("Merging grid and tornado data on date...")
 merged = df.merge(dt, on="date", how="inner")
 
@@ -103,12 +91,7 @@ nearest_matches = merged.loc[idx].reset_index(drop=True)
 
 print(f"Final matched rows (one per tornado event): {len(nearest_matches)}")
 
-# ============================================================
-# 4. SAVE FINAL RESULT
-# ============================================================
-
-# Save the matched dataset into the final data folder.
-# Note: expect this script to be run from the `Data` directory.
+# Save the matched dataset
 output_file = "final/final_data1.csv"
 nearest_matches.to_csv(output_file, index=False)
 
