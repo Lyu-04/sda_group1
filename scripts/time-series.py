@@ -1,10 +1,12 @@
 import pandas as pd
-import os
 import matplotlib.pyplot as plt
+import numpy as np
+from scipy import stats
 
-input_file = "../Data/final/final_data1.csv"
+input_file = r"Data\final\final_data1.csv"
 df = pd.read_csv(input_file)
 
+# extracting all needed data
 lat_list = []
 lat_min_1 = []
 lon_list = []
@@ -16,19 +18,68 @@ for i in range(1, len(df["slat"])):
     lon_list.append(df["slon"][i])
     lon_min_1.append(df["slon"][i-1])
 
+# data extraction for total storm data
+input_file = r"Data\processed\unique_storms.csv"
+storm_df = pd.read_csv(input_file)
+avg_lat_list = []
+avg_lat_min_1 = []
+avg_lon_list = []
+avg_lon_min_1 = []
+for i in range(1, len(storm_df)):
+    avg_lat_list.append(storm_df["avg_lat"][i])
+    avg_lat_min_1.append(storm_df["avg_lat"][i-1])
+    avg_lon_list.append(storm_df["avg_lon"][i])
+    avg_lon_min_1.append(storm_df["avg_lon"][i-1])
+
+#correlation and p value for storms
+r_lat, p_value_lat = stats.pearsonr(avg_lat_min_1, avg_lat_list)
+r_lon, p_value_lon = stats.pearsonr(avg_lon_min_1, avg_lon_list)
+print(f"for the avg storm latitutde r = {r_lat} and p = {p_value_lat}")
+print(f"for the avg storm longitude r = {r_lon} and p = {p_value_lon}")
+
+# plotting
+plt.figure(1)
 fig, (ax1, ax2) = plt.subplots(1, 2)
 
 ax1.scatter(lat_min_1, lat_list, alpha = 0.1)
 ax1.set_xlabel("latitude (-1)")
 ax1.set_ylabel("latitude")
+ax1.set_ylim(25, 37)
+ax1.set_xlim(25, 37)
 
 ax2.scatter(lon_min_1, lon_list, alpha = 0.1)
 ax2.set_xlabel("longitude (-1)")
 ax2.set_ylabel("longitude")
+ax2.set_ylim(-107, -93)
+ax2.set_xlim(-107, -93)
 
-output_dir = '../plots'
-os.makedirs(output_dir, exist_ok=True)
-plt.savefig(os.path.join(output_dir, 'tornado_time_series.png'))
-print(f"Plot saved to {os.path.join(output_dir, 'tornado_time_series.png')}")
+plt.savefig(r"plots\torando_series.png")
 
-plt.show()
+plt.figure(2)
+fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2)
+
+ax1.scatter(lat_min_1, lat_list, alpha = 0.1)
+ax1.set_xlabel("latitude (-1)")
+ax1.set_ylabel("latitude")
+ax1.set_ylim(25, 37)
+ax1.set_xlim(25, 37)
+
+ax2.scatter(lon_min_1, lon_list, alpha = 0.1)
+ax2.set_xlabel("longitude (-1)")
+ax2.set_ylabel("longitude")
+ax2.set_ylim(-107, -93)
+ax2.set_xlim(-107, -93)
+
+ax3.scatter(avg_lat_min_1, avg_lat_list, alpha = 0.1)
+ax3.set_xlabel("avg latitude (-1)")
+ax3.set_ylabel("avg latitude")
+ax3.set_ylim(25, 37)
+ax3.set_xlim(25, 37)
+
+ax4.scatter(avg_lon_min_1, avg_lon_list, alpha = 0.1)
+ax4.set_xlabel("avg longitude (-1)")
+ax4.set_ylabel("avg longitude")
+ax4.set_ylim(-107, -93)
+ax4.set_xlim(-107, -93)
+
+plt.savefig(r"plots\tornado_time_series.png")
