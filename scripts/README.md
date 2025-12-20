@@ -40,6 +40,14 @@ so the relative `../Data` and `../plots` paths resolve.
 - `tornado_path_mag_trends.py` - Computes yearly mean magnitude/length/width trends with linear fits. Saves trend plots to `../plots/trends/`, summary CSV to `../Data/results/tornado_path_shift_summary.csv`, and residual plots via `linear_assumption_tests`.
 
 - `tornado_visualiser.py` - script contains functions to display values from the tornado data
+  
+- `inj_fat_correlation_data_prep.py` - creating target variables, scaling features, and handling class weights
+  
+- `inj_fat_unweighted_model.py` - unweighted logistic regression to model injury and fatality predictions
+  
+- `inj_fat_weighted_model.py` - logistic regression models with weighted classes
+  
+-  `fat_inj_visualization.py` - plots related to coefficient comparisons, distributions and odds ratio comparisons, run this file to reproduce analysis related to fatality & injury 
 
 ## Requirements
 - Python 3.x
