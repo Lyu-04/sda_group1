@@ -49,7 +49,7 @@ so the relative `../Data` and `../plots` paths resolve.
   
 -  `fat_inj_visualization.py` - create plots related to coefficient comparisons, distributions and odds ratio comparisons
   
--  `injury_fatality_correlation_analysis.py` - main script for analyzing association between various predictors and injury/fatality, integrates all previous int_fat files on data preparation, modeling, and visualization into a comprehensive pipeline, run this file to reproduce analysis 
+-  `injury_fatality_correlation_analysis.py` - main script for analyzing association between various predictors and injury/fatality, integrates all previous int_fat files on data preparation, modeling, and visualization into a comprehensive pipeline. Saves `boxplot_by_fatality_target.png`, `boxplot_by_injury_target.png`, `class_imbalance.png`, `coefficient_comparison.png`, `odd_ration_comparison.png`, `pct_change_odds_ratio.png` to `../plots/class_imbalance/`
 
 ## Requirements
 - Python 3.x
