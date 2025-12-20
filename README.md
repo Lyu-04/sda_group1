@@ -41,7 +41,7 @@ Some important analyses:
 
 - `linear_assumption_tests.py`  
   - Provides diagnostics used by the main scripts to check linear model assumptions
-- `scripts/regresion anlysis` - where is 3 files, main one 'regression_tornado.py' is there we tried to forecast tornadoes, calculated probabilities of tornado happening based on weather data, calculated expected fataliies based on weather data. Other two files are for tuning parameters.
+- `scripts/regresion_anlysis/regression_tornado.py` -  we tried to forecast tornadoes, calculated probabilities of tornado happening and calculated expected fataliies based on weather data.
 ## Plots
 
 Generated figures are saved into subfolders under `plots/`:
@@ -68,14 +68,3 @@ Generated figures are saved into subfolders under `plots/`:
 ### small note
 
 For the plots of the trajectories of the center of mass of tornadoes, when running `tornado_center_of_mass_shift.py` yourself, you can zoom in using the lens to get a better, more readable view of the trajectories.
-
-
-### Use of AI
-Some parts of code were written with the help of AI, lets go through them:
-1) converting data file from .grib to .csv. (sqitchgribtocsv.py in data folder)
-
-For the regression:
-2) we haven't worked with XGBOOST and forest model for a while so helped   a little bit to code the model and to use the new libraries.
-3) in the file regression_tornado.py we were overestimating the expected fatalities so with the advice from google an AI we decided to calibrate the probabilities calculated by XGBOOST (lines 273-283).
-4) Wrote a code to tune the hyperparamaters of our models, never done this before so tune_models.py mostly written by AI.
-5) Some code were just hard to write so for the time puposes and not to get stuck, AI helped in some lines( for example taking data in chunks because dataset was too large) but nothing significant.
