@@ -47,7 +47,9 @@ so the relative `../Data` and `../plots` paths resolve.
   
 - `inj_fat_weighted_model.py` - logistic regression models with weighted classes
   
--  `fat_inj_visualization.py` - plots related to coefficient comparisons, distributions and odds ratio comparisons, run this file to reproduce analysis related to fatality & injury 
+-  `fat_inj_visualization.py` - create plots related to coefficient comparisons, distributions and odds ratio comparisons
+  
+-  `injury_fatality_correlation_analysis.py` - main script for analyzing association between various predictors and injury/fatality, integrates all previous int_fat files on data preparation, modeling, and visualization into a comprehensive pipeline, run this file to reproduce analysis 
 
 ## Requirements
 - Python 3.x
