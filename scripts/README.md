@@ -40,6 +40,16 @@ so the relative `../Data` and `../plots` paths resolve.
 - `tornado_path_mag_trends.py` - Computes yearly mean magnitude/length/width trends with linear fits. Saves trend plots to `../plots/trends/`, summary CSV to `../Data/results/tornado_path_shift_summary.csv`, and residual plots via `linear_assumption_tests`.
 
 - `tornado_visualiser.py` - script contains functions to display values from the tornado data
+  
+- `inj_fat_correlation_data_prep.py` - creating target variables, scaling features, and handling class weights
+  
+- `inj_fat_unweighted_model.py` - unweighted logistic regression to model injury and fatality predictions
+  
+- `inj_fat_weighted_model.py` - logistic regression models with weighted classes
+  
+-  `fat_inj_visualization.py` - create plots related to coefficient comparisons, distributions and odds ratio comparisons
+  
+-  `injury_fatality_correlation_analysis.py` - main script for analyzing association between various predictors and injury/fatality, integrates all previous int_fat files on data preparation, modeling, and visualization into a comprehensive pipeline. Saves `boxplot_by_fatality_target.png`, `boxplot_by_injury_target.png`, `class_imbalance.png`, `coefficient_comparison.png`, `odd_ration_comparison.png`, `pct_change_odds_ratio.png` to `../plots/class_imbalance/`
 
 - `scripts/regresion anlysis/regression_tornado.py` -  Tornado forecasting, calculated probabilities of tornado happening based on weather data, calculated expected fatalities based on weather data.
 - `scripts/regresion anlysis/tuneK.py` - Tunes K parameter which says how many top probability grids per day we take in the model.
