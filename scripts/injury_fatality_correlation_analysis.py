@@ -109,7 +109,7 @@ def main():
     # Compare and visualize
 
     # Output directory: 
-    out_dir = create_output_directory("results_injury_fatality_analysis")
+    out_dir = Path("../plots/class_imbalance")
 
     # Coefficient comparisons
     coef_cmp_inj = create_coefficient_comparison(res_inj_unw, res_inj_w, pred_list, "injury_target")
